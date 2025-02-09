@@ -11,5 +11,14 @@ export default defineConfig({
       '@services': path.resolve(__dirname, './src/services'),
       '@interfaces': path.resolve(__dirname, './src/interfaces')
     }
-  }
+  },
+  build: {
+    assetsDir: 'assets',
+    rollupOptions: {
+      output: {
+        assetFileNames: 'assets/[name].[hash][extname]'
+      }
+    }
+  },
+  publicDir: 'public'
 });

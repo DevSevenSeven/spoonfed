@@ -20,6 +20,29 @@ const retrieveUsers = async () => {
     console.log('Error from data retrieval:', err);
     return [];
   }
-}
+};
 
-export { retrieveUsers };
+const registerUser = async (userData: { username: string; password: string }) => {
+  try {
+    const response = await fetch('/api/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Auth.getToken()}`
+      },
+      body: JSON.stringify(userData)
+    });
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error('Failed to register user');
+    }
+
+    return data;
+  } catch (err) {
+    console.log('Error registering user:', err);
+    return Promise.reject('Could not register user');
+  }
+};
+
+export { retrieveUsers, registerUser };

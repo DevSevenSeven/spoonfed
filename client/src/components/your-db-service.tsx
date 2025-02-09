@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-interface SearchResult {
+export interface SearchResult {
   id: number;
   name: string;
   searchResults:string;
@@ -16,4 +16,3 @@ export const calltodb = async (searchText: string): Promise<SearchResult[]> => {
     return [];
   }
 };
-export default SearchResult;

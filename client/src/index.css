@@ -116,6 +116,26 @@
     animation: spin 1s linear infinite;
   }
   
+  .form {
+    width: 60%;
+    height: 80%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .register {
+    width: 60%;
+    height: 80%;
+    padding-top: 15px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
