@@ -15,6 +15,7 @@ import Dashboard from './pages/dashboard';
 import Login from './pages/Login'
 import Register from './pages/Register.tsx';
 import './styles/style.css';
+import IngredientsPage from './pages/Ingredientspage.tsx';
 // main.tsx
 const router = createBrowserRouter([
   {
@@ -43,17 +44,23 @@ const router = createBrowserRouter([
         element: <UserProfile />
       },
       {
+        path: 'register',
+        element: <Register />
+      },
+      {
         path: 'saved-recipes',
         element: <SavedRecipes />
       },
       {
+        path:  'ingredient-page',
+        element: <IngredientsPage />
+      },
+    
+      {
         path: 'recipe/:id',
         element: <RecipeDetail />
       },
-      {
-        path: 'register',
-        element: <Register />
-      },
+      
         {
           path: 'pairing/:recipeId', 
           element: <PairingDisplay recipe={{
@@ -66,7 +73,8 @@ const router = createBrowserRouter([
             foodGroup: '',
             ingredients: [],
             instructions: [],
-            searchMode: false
+            searchMode: false,
+            matchingIngredients:'',
           }} />
         }
       

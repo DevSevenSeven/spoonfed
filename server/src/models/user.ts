@@ -15,6 +15,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
     public id!: number;
     public username!: string;
     public password!: string;
+  savedRecipes: any;
 
     // hashes the password prior to database storage for security.
     public async hashPassword(password: string) {

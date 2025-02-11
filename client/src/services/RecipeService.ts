@@ -46,10 +46,10 @@ export const getRecipeDetails = async (recipeId: string): Promise<Recipe> => {
       customPairings: [], // Can be populated by user input or other sources
       pairings: [] // Will be populated with combined pairings
       ,
-
       searchMode: false,
       handleIngredientSearch: undefined,
-      sourceUrl: undefined
+      sourceUrl: undefined,
+      matchingIngredients: data ,
     };
 
     // Fetch pairings asynchronously
@@ -124,7 +124,8 @@ export const searchRecipes = async (ingredients: string[]): Promise<Recipe[]> =>
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       searchMode: true,
-      sourceUrl: undefined
+      sourceUrl: undefined,
+      matchingIngredients: ''
     }));
 
   } catch (error) {

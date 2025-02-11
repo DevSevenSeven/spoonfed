@@ -43,11 +43,15 @@ const Register = () => {
     }
 
     try {
+      console.log('Starting registration process...');
+
       // Register the user
       await registerUser({
         username: registerData.username,
         password: registerData.password
       });
+
+      console.log('Registration successful, attempting login...');
 
       // Automatically log in after successful registration
       const loginResponse = await login({
@@ -55,11 +59,16 @@ const Register = () => {
         password: registerData.password
       });
 
+      if (!loginResponse || !loginResponse.token) {
+        throw new Error('Login response missing token');
+      }
+
       Auth.login(loginResponse.token);
       navigate('/dashboard');
+
     } catch (err) {
-      setError('Failed to register account');
-      console.error('Registration error:', err);
+      console.error('Registration/Login error:', err);
+      setError(err instanceof Error ? err.message : 'Failed to register account');
     }
   };
 
@@ -68,7 +77,7 @@ const Register = () => {
       <form className="form" onSubmit={handleSubmit}>
         <h1>Create Account</h1>
         {error && <div className="error-message">{error}</div>}
-        
+
         <label>Username</label>
         <input
           type="text"

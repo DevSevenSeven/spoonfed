@@ -1,6 +1,6 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
-import RecipesToAddSaved from '../componets/RecipesToAddSaved';
+import RecipesToAddSaved from '../components/RecipesToAddSaved';
 import type User from '../interfaces/User';
 
 const UserPage = () => {

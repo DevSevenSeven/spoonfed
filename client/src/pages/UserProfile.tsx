@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import UserSavedRecipes from '../components/UserSavedRecipes';
 import '../styles/userprofile.css'
 
+
+
 interface UserPreferences {
   dietaryRestrictions: string[];
   favoritesCuisines: string[];
