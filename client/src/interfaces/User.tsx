@@ -1,7 +1,8 @@
-export default interface User {
-    readonly Name: string | null;
-    readonly City: string | null;
-    readonly State: string | null;
-    readonly Avatar: any | null; 
-
+export interface User {
+    id: number | null;
+    username: string | null;
+    firstName: string;
+    lastName: string;
+    email: string
+    password: string
   }
