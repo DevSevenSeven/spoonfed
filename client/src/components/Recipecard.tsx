@@ -3,6 +3,7 @@ import React from 'react';
 import { Recipe } from '../interfaces/recipe';
 import PairingDisplay from './PairingDisplay';
 
+
 interface RecipeCardProps {
   recipe: Recipe;
   recipeId: string;

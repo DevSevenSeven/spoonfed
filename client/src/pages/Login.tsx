@@ -1,6 +1,7 @@
 import { useState, FormEvent, ChangeEvent } from "react";
+import { Link } from 'react-router-dom';
 import Auth from '../utils/auth.js';
-
+import '../index.css';
 import { login } from "../api/authAPI";
 
 interface LoginData {
@@ -24,7 +25,7 @@ const Login = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    
+
     if (!loginData.username || !loginData.password) {
       alert("Both fields are required!");
       return;
@@ -56,8 +57,11 @@ const Login = () => {
           value={loginData.password}
           onChange={handleChange}
         />
-        <button type="submit">Enter</button>
+        <button className="submit" type="submit">Login</button>
       </form>
+      <p className="register">
+        Don't have an account? <Link to="/register"> Register here</Link>
+      </p>
     </div>
   );
 };

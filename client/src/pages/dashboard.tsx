@@ -50,25 +50,46 @@ const Dashboard: React.FC = () => {
   const handleSaveRecipe = async (recipe: Recipe) => {
     try {
       const userId = localStorage.getItem('userId');
+      const token = localStorage.getItem('token');
+  
       if (!userId) {
         setError('Please log in to save recipes');
         return;
       }
-
-      const savedRecipes = JSON.parse(localStorage.getItem(`savedRecipes_${userId}`) || '[]');
-      if (!savedRecipes.some((saved: { id: string; }) => saved.id === recipe.id)) {
-        const recipeWithFoodGroup = {
-          ...recipe,
-          foodGroup: determineFoodGroup(recipe.ingredients)
-        };
-        const updatedRecipes = [...savedRecipes, recipeWithFoodGroup];
-        localStorage.setItem(`savedRecipes_${userId}`, JSON.stringify(updatedRecipes));
-        setError('Recipe saved successfully!');
-        setTimeout(() => setError(null), 2000);
+  
+      // Determine food group
+      const recipeWithFoodGroup = {
+        ...recipe,
+        foodGroup: determineFoodGroup(recipe.ingredients)
+      };
+  
+      // API call to save recipe to user profile
+      const response = await fetch('/api/user/save-recipe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          userId,
+          recipe: recipeWithFoodGroup
+        })
+      });
+  
+      const responseData = await response.json();
+  
+      if (!response.ok) {
+        throw new Error(responseData.message || 'Failed to save recipe');
       }
+  
+      // Success handling
+      setError('Recipe saved successfully!');
+      setTimeout(() => setError(null), 2000);
+  
     } catch (error) {
       console.error('Failed to save recipe:', error);
-      setError('Failed to save recipe');
+      setError(error instanceof Error ? error.message : 'Failed to save recipe');
+      setTimeout(() => setError(null), 2000);
     }
   };
 
@@ -169,7 +190,7 @@ const Dashboard: React.FC = () => {
         </div>
       ) : (
         <div className="recipe-grid">
-          {recipes.map((recipe) => (
+          {recipes.slice(0, 6).map((recipe) => (
             <RecipeCard 
               key={recipe.id} 
               recipe={recipe}

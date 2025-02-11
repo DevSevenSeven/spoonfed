@@ -1,4 +1,3 @@
-// components/UserSavedRecipes.tsx
 import React, { useState, useEffect } from 'react';
 import RecipeCard from './Recipecard';
 import { Recipe } from '../interfaces/recipe';
@@ -30,24 +29,77 @@ const UserSavedRecipes: React.FC<UserSavedRecipesProps> = ({ userId }) => {
   const loadSavedRecipes = async () => {
     try {
       setIsLoading(true);
-      // Get saved recipes from localStorage using userId
+      // First try to get recipes from API
+      const response = await fetch(`/api/users/${userId}/saved-recipes`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch saved recipes');
+      }
+
+      const data = await response.json();
+      setSavedRecipes(data);
+
+      // Backup to localStorage
+      localStorage.setItem(`savedRecipes_${userId}`, JSON.stringify(data));
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Failed to load saved recipes:', error);
+      // Fallback to localStorage if API fails
       const saved = localStorage.getItem(`savedRecipes_${userId}`);
       if (saved) {
         setSavedRecipes(JSON.parse(saved));
       }
+      setError('Failed to load saved recipes from server');
       setIsLoading(false);
+    }
+  };
+
+  const handleSaveRecipe = async (recipe: Recipe) => {
+    try {
+      const response = await fetch(`/api/users/${userId}/saved-recipes`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ recipe })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to save recipe');
+      }
+
+      // Update local state
+      const updatedRecipes = [...savedRecipes, recipe];
+      setSavedRecipes(updatedRecipes);
+      localStorage.setItem(`savedRecipes_${userId}`, JSON.stringify(updatedRecipes));
     } catch (error) {
-      console.error('Failed to load saved recipes:', error);
-      setError('Failed to load saved recipes');
-      setIsLoading(false);
+      console.error('Failed to save recipe:', error);
+      setError('Failed to save recipe');
     }
   };
 
   const handleDeleteRecipe = async (recipeId: string) => {
     try {
+      const response = await fetch(`/api/users/${userId}/saved-recipes/${recipeId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete recipe');
+      }
+
+      // Update local state
       const updatedRecipes = savedRecipes.filter(recipe => recipe.id !== recipeId);
-      localStorage.setItem(`savedRecipes_${userId}`, JSON.stringify(updatedRecipes));
       setSavedRecipes(updatedRecipes);
+      localStorage.setItem(`savedRecipes_${userId}`, JSON.stringify(updatedRecipes));
     } catch (error) {
       console.error('Failed to delete recipe:', error);
       setError('Failed to delete recipe');
@@ -104,7 +156,7 @@ const UserSavedRecipes: React.FC<UserSavedRecipesProps> = ({ userId }) => {
               key={recipe.id}
               recipe={recipe}
               recipeId={recipe.id}
-              onSave={() => {}} 
+              onSave={handleSaveRecipe} 
               onDelete={handleDeleteRecipe}
               isSaved={true}
               showSaveDelete={true}

@@ -3,67 +3,47 @@ import { Link } from 'react-router-dom';
 
 const Nav = () => {
   const currentPage = window.location.pathname;
-  
+
   return (
     <nav className="w-full py-4 bg-gray-50">
       <div className="container mx-auto px-4 flex gap-8">
-        <Link 
+        <Link
           to="/"
-          className={`text-xl transition-colors ${
-            currentPage === '/' 
-              ? 'text-blue-900 font-bold' 
+          className={`text-xl transition-colors ${currentPage === '/'
+              ? 'text-blue-900 font-bold'
               : 'text-gray-500 hover:text-blue-700'
-          }`}
+            }`}
         >
           Home
         </Link>
-        <Link 
+        <Link
           to="/dashboard"
-          className={`text-xl transition-colors ${
-            currentPage === '/dashboard' 
-              ? 'text-blue-900 font-bold' 
+          className={`text-xl transition-colors ${currentPage === '/dashboard'
+              ? 'text-blue-900 font-bold'
               : 'text-gray-500 hover:text-blue-700'
-          }`}
+            }`}
         >
           Recipes
         </Link>
-      
-        <Link 
+
+        <Link
           to="/profile"
-          className={`text-xl transition-colors ${
-            currentPage === '/profile' 
-              ? 'text-blue-900 font-bold' 
+          className={`text-xl transition-colors ${currentPage === '/profile'
+              ? 'text-blue-900 font-bold'
               : 'text-gray-500 hover:text-blue-700'
-          }`}
+            }`}
         >
           Profile
         </Link>
-        <Link 
+        <Link
           to="/login"
-          className={`text-xl transition-colors ${
-            currentPage === '/login' 
-              ? 'text-blue-900 font-bold' 
+          className={`text-xl transition-colors ${currentPage === '/login'
+              ? 'text-blue-900 font-bold'
               : 'text-gray-500 hover:text-blue-700'
-          }`}
+            }`}
         >
           Login
         </Link>
-      <div>
-</div>
-<input
-        type="search"
-        className="form-control rounded"
-        placeholder="Search"
-        aria-label="Search"
-        aria-describedby="search-addon"
-      />
-      <span className="input-group-text border-0" id="search-addon">
-        <i className="fas fa-search"></i>
-        
-        <a href='./Dashboard' className="btn btn-primary btn-small active text-teal-500 font bold " role="button" aria-pressed="true">Search</a>
-
-
-       </span>
       </div>
     </nav>
   );

@@ -1,4 +1,5 @@
 export interface Recipe {
+  matchingIngredients: string;
   sourceUrl: any;
   suggestedPairings: any;
   customPairings: any;
@@ -30,7 +31,13 @@ export interface Recipe {
     pairedWines: string[];
     pairedText: string;
     productMatches: any[],
-  }
+    avaliableIngredients?: string;
+    currentUser: string;
+    userId: string;
+
+  },
+
+
   
 }
 
@@ -41,3 +48,18 @@ export interface Pairing {
   description?: string;
   imageUrl?: string;
 }
+
+export type EnhancedRecipe = Recipe & {
+  matchingIngredients: number;
+  totalIngredients: any;
+ sortedRecipes: string;
+ 
+};
+
+export interface RecipeMatch extends Recipe {
+  matchingIngredients: string;
+  totalIngredients: string;
+  sortedRecipes: string;
+  recipe: string;
+}
+
