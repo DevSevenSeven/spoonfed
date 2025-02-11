@@ -1,88 +1,91 @@
-import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import React from 'react';
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import React from "react";
 
 // Fix import paths
-import App from '../app.tsx';
-import ErrorPage from './pages/ErrorPage';
-import MainPage from './pages/Mainpage';
-import RecipeSearch from './components/RecipeSearch';
-import SavedRecipes from './pages/SavedRecipes';
-import PairingDisplay from './components/PairingDisplay.tsx';
-import RecipeDetail from './services/RecipeDetailService.ts';
-import UserProfile from './pages/UserProfile';  // Add this import
-import Dashboard from './pages/dashboard';
-import Login from './pages/Login'
-import Register from './pages/Register.tsx';
-import './styles/style.css';
-import IngredientsPage from './pages/Ingredientspage.tsx';
+import App from "../app.tsx";
+import ErrorPage from "./pages/ErrorPage";
+import MainPage from "./pages/Mainpage";
+import RecipeSearch from "./components/RecipeSearch";
+import SavedRecipes from "./pages/SavedRecipes";
+import PairingDisplay from "./components/PairingDisplay.tsx";
+import RecipeDetail from "./services/RecipeDetailService.ts";
+import UserProfile from "./pages/UserProfile"; // Add this import
+import Dashboard from "./pages/dashboard";
+import Login from "./pages/Login";
+import Register from "./pages/Register.tsx";
+import "./styles/style.css";
+import IngredientsPage from "./pages/Ingredientspage.tsx";
 // main.tsx
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
       {
         index: true,
-        element: <MainPage />
+        element: <MainPage />,
       },
       {
-        path: 'login',
-        element: <Login />
+        path: "login",
+        element: <Login />,
       },
       {
-        path: 'dashboard',
-        element: <Dashboard />
+        path: "dashboard",
+        element: <Dashboard />,
       },
       {
-        path: 'recipe-search',
-        element: <RecipeSearch />
+        path: "recipe-search",
+        element: <RecipeSearch />,
       },
       {
-        path: 'profile',
-        element: <UserProfile />
+        path: "profile",
+        element: <UserProfile />,
       },
       {
-        path: 'register',
-        element: <Register />
+        path: "register",
+        element: <Register />,
       },
       {
-        path: 'saved-recipes',
-        element: <SavedRecipes />
+        path: "saved-recipes",
+        element: <SavedRecipes />,
       },
       {
-        path:  'ingredient-page',
-        element: <IngredientsPage />
+        path: "ingredient-page",
+        element: <IngredientsPage />,
       },
-    
+
       {
-        path: 'recipe/:id',
-        element: <RecipeDetail />
+        path: "recipe/:id",
+        element: <RecipeDetail />,
       },
-      
-        {
-          path: 'pairing/:recipeId', 
-          element: <PairingDisplay recipe={{
-            sourceUrl: '',
-            suggestedPairings: [],
-            customPairings: [],
-            id: '',
-            title: '',
-            description: '',
-            foodGroup: '',
-            ingredients: [],
-            instructions: [],
-            searchMode: false,
-            matchingIngredients:'',
-          }} />
-        }
-      
-    ]
-  }
+
+      {
+        path: "pairing/:recipeId",
+        element: (
+          <PairingDisplay
+            recipe={{
+              sourceUrl: "",
+              suggestedPairings: [],
+              customPairings: [],
+              id: "",
+              title: "",
+              description: "",
+              foodGroup: "",
+              ingredients: [],
+              instructions: [],
+              searchMode: false,
+              matchingIngredients: "",
+            }}
+          />
+        ),
+      },
+    ],
+  },
 ]);
 // Create root and render
-const rootElement = document.getElementById('root');
+const rootElement = document.getElementById("root");
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(
     <React.StrictMode>
