@@ -35,7 +35,13 @@ https://spoonprod.onrender.com/
   * Mateo Velasquez
 
   Api's Used
-  *spoonacular
-  *Cocktail DB
+  * Spoonacular
+  * Cocktail DB
  
   ## Resources for assistance 
+  * Sonnet Claude
+  * Module 14 Challenge
+  * Module 14 Mini-Project
+  * X-pert learning assistance
+  * https://mui.com/
+    
